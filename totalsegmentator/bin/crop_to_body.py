@@ -7,11 +7,11 @@ import time
 
 import numpy as np
 import nibabel as nib
-import torch
 
 from totalsegmentator.libs import download_pretrained_weights, combine_masks
 from totalsegmentator.config import setup_nnunet
 from totalsegmentator.cropping import crop_to_mask, undo_crop
+from totalsegmentator.python_api import select_device
 
 
 def main():
@@ -34,7 +34,7 @@ def main():
     parser.add_argument("-ns", "--nr_thr_saving", type=int, help="Nr of threads for saving segmentations",
                         default=6)
 
-    parser.add_argument("-d", "--device", choices=["gpu", "cpu"], help="Device to run on (default: gpu).",
+    parser.add_argument("-d", "--device", choices=["gpu", "cpu", "mps"], help="Device to run on (default: gpu).",
                         default="gpu")
 
     parser.add_argument("-q", "--quiet", action="store_true", help="Print no intermediate outputs",
@@ -47,10 +47,7 @@ def main():
 
     quiet, verbose = args.quiet, args.verbose
 
-    device = "cuda" if args.device == "gpu" else "cpu"
-    if device == "cuda" and not torch.cuda.is_available():
-        print("No GPU detected. Running on CPU.")
-        device = "cpu"
+    device = select_device(args.device)
 
     setup_nnunet()
 

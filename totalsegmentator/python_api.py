@@ -47,17 +47,27 @@ def convert_device_to_string(device):
     if hasattr(device, 'type'):  # torch.device object
         if device.type == "cuda":
             return "gpu"
-        else:
+        if device.type in ["cpu", "mps"]:
             return device.type
+    return device
 
 
 def select_device(device):
+    if isinstance(device, torch.device):
+        return device
+
     device = convert_device_to_cuda(device)
 
     # available devices: gpu | cpu | mps | gpu:1, gpu:2, etc.
-    if device == "gpu": 
-        device = "cuda"
-    if device.startswith("cuda"): 
+    if device == "gpu":
+        if torch.cuda.is_available():
+            device = "cuda:0"
+        elif torch.backends.mps.is_available():
+            device = torch.device("mps")
+        else:
+            print("No GPU detected. Running on CPU. This can be very slow. The '--fast' or the `--roi_subset` option can help to reduce runtime.")
+            device = "cpu"
+    elif isinstance(device, str) and device.startswith("cuda"):
         if device == "cuda": device = "cuda:0"
         if not torch.cuda.is_available():
             print("No GPU detected. Running on CPU. This can be very slow. The '--fast' or the `--roi_subset` option can help to reduce runtime.")
@@ -69,6 +79,12 @@ def select_device(device):
             else:
                 print("Invalid GPU config, running on the CPU")
                 device = "cpu"
+    elif device == "mps":
+        if torch.backends.mps.is_available():
+            device = torch.device("mps")
+        else:
+            print("MPS not available. Running on CPU. This can be very slow. The '--fast' or the `--roi_subset` option can help to reduce runtime.")
+            device = "cpu"
     return device
 
 

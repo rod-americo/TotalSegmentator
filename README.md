@@ -1,3 +1,31 @@
+**Status:** Personal Fork
+
+# Fork Notice
+
+This repository is a personal fork of the original project:
+
+Upstream: https://github.com/wasserth/TotalSegmentator
+
+This fork is maintained for integration with the **Heimdallr** ecosystem and contains custom adaptations for internal workflows, experiments, and operational use.
+
+It is **not an official version**, does not represent the upstream maintainers, and is not intended to replace the original project.
+
+For the official version and full documentation, please refer to the upstream repository.
+
+## Purpose of this fork
+
+- Integration with Heimdallr pipeline and infrastructure
+- Custom configuration and operational adjustments
+- Experimental features and workflow adaptations
+- Personal and internal use
+
+This fork may diverge from upstream behavior.
+
+## Changes from upstream
+
+This fork may include configuration changes, integration hooks, or experimental modifications.
+It may not always remain synchronized with upstream.
+
 # TotalSegmentator
 
 Tool for segmentation of most major anatomical structures in any CT or MR image. It was trained on a wide range of different CT and MR images (different scanners, institutions, protocols,...) and therefore works well on most images. A large part of the training dataset can be downloaded here: [CT dataset](https://doi.org/10.5281/zenodo.6802613) (1228 subjects) and [MR dataset](https://zenodo.org/doi/10.5281/zenodo.11367004) (616 subjects). You can also try the tool online at [totalsegmentator.com](https://totalsegmentator.com/) or as [3D Slicer extension](https://github.com/lassoan/SlicerTotalSegmentator).

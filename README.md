@@ -6,7 +6,7 @@ This repository is a personal fork of the original project:
 
 Upstream: https://github.com/wasserth/TotalSegmentator
 
-This fork is maintained for integration with the **Heimdallr** ecosystem and contains custom adaptations for internal workflows, experiments, and operational use.
+This fork is maintained for integration with the **[Heimdallr](https://github.com/rod-americo/Heimdallr)** ecosystem and contains custom adaptations for internal workflows, experiments, and operational use.
 
 It is **not an official version**, does not represent the upstream maintainers, and is not intended to replace the original project.
 
